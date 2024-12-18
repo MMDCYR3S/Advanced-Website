@@ -7,11 +7,24 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
+        <header>
+            <!-- Header Ends -->
+            <div class="header-col">
+                <h1>Blog Posts</h1>
+                
+                {% if user.is_authenticated %}
+                    <h4>Welcome,  {{user.get_name}}</h4>
+                {% else %}
+                    <h4>Welcome,  Please <a href="{% url '/registration/login.html' %}">Login</a></h4>
+                {% endif %}  
+                
+            </div>
+            <hr>
+            <!-- Header Ends -->
+        </header>
     </head>
     <body>
         <div>
-            <h1>Blog Posts</h1>
-            
             {% for post in posts %}
                 <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{post.title}}</a></h3>
                 <span>
@@ -21,13 +34,16 @@
                         Category: {{post.category}}
                     </p>
                     <small>
-                        Published Date: {{post.published_date|date:"d M,Y"}}
+                        Published Date: {{post.published_date|date:"d M,Y"}} &dash;
+                        <a href="{% url 'blog:post-edit' pk=post.id %}">Edit</a> &dash;
+                        <a href="{% url 'blog:post-delete' pk=post.id %}">Delete</a>
                     </small>
                 <span>
                 <p>{{post.content|truncatewords:20}}</p>
             {% endfor %}
+            <hr>
                 
-            
+            <!-- Pagination Begin -->
             <div class="pagination">
                 <span class="step-links">
                     
@@ -37,20 +53,16 @@
                     {% endif %}
 
                     <span class="current">
-                        Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}
+                        &mdash; Page {{page_obj.number}} of {{page_obj.paginator.num_pages}} &mdash;
                     </span>
 
-                    
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}">Next</a>
                         <a href="?page={{ page_obj.paginator.num_pages }}">&mdash; Last &raquo;</a>
                     {% endif %}
-                        
-                        
                 </span>
             </div>
-                
-
+            <!-- Pagination Ends -->
         </div>
     </body>
 </html>

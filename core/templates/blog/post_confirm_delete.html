@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <form method="post">
+            {% csrf_token %}
+            <p>Are you sure you wanna delete this post?</p>
+            <input type="submit" value="Confirm">
+            <a href="{% url 'blog:post-list' %}">Cancel</a>
+        </form>
+    </body>
+</html>

@@ -11,7 +11,10 @@
     <body>
         <div>
             <h1>{{object.title}}</h1>
-            <small>Published Date: {{object.published_date|date:"d M,Y"}}</small>
+            <small>
+                Published Date: {{object.published_date|date:"d M,Y"}} &dash;
+                Author: {{object.author.first_name}}
+            </small>
             <p>{{object.content}}</p>
         </div>
     </body>

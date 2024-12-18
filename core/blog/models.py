@@ -2,14 +2,14 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 # Getting user model object for author of the post
-User = get_user_model()
+# User = get_user_model()
 
 # Create Post model for out blog posts
 class Post(models.Model):
     """
     In this class, Posts are define for blog application.
     """
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
     title = models.CharField(max_length=200)
     content = models.TextField()

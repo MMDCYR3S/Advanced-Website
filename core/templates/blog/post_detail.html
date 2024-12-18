@@ -6,11 +6,13 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
     </head>
     <body>
-        <h1>Index</h1>
-        <h3>{{name}}</h3>
-        h
-        <p>{{posts}}</p>
+        <div>
+            <h1>{{object.title}}</h1>
+            <small>Published Date: {{object.published_date|date:"d M,Y"}}</small>
+            <p>{{object.content}}</p>
+        </div>
     </body>
 </html>

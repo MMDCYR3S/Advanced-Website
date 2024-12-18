@@ -41,10 +41,10 @@ class UserManager(BaseUserManager):
         
         return self.create_user(email, password, **extra_fields)
 
-# Create CustomUser for controling user login/signup
+# Create CustomUser for controlling user login/signup
 class User(AbstractBaseUser, PermissionsMixin):
     """
-    This is a User Model whre It gets email as username.
+    This is a User Model where It gets email as username.
     """
     email = models.EmailField(max_length=200, unique=True)
     is_staff = models.BooleanField(default=False)
@@ -65,7 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 # Create a Profile class
 class Profile(models.Model):
     """
-    This is a Profile model to compelete user's information.
+    This is a Profile model to complete user's information.
     It gets email from User model and then put it in the user
     variable below.
     """

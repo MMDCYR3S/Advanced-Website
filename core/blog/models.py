@@ -7,7 +7,7 @@ User = get_user_model()
 # Create Post model for out blog posts
 class Post(models.Model):
     """
-    In this class, Posts are define for blog applilcation.
+    In this class, Posts are define for blog application.
     """
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(blank=True)
@@ -15,7 +15,6 @@ class Post(models.Model):
     content = models.TextField()
     status = models.BooleanField()
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
-
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     published_date = models.DateTimeField()

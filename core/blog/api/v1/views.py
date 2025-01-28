@@ -3,13 +3,17 @@ from rest_framework.decorators import api_view, permission_classes, action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import status
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
+from .pagination import SmallPagination
+from .permissions import IsOwnerOrReadOnly
 from .serializers import PostSerializer, CategorySerializer
 from ...models import Post, Category
 
+
 from rest_framework.views import APIView
 from rest_framework import mixins 
-
 from rest_framework.generics import (
     GenericAPIView,
     ListCreateAPIView,
@@ -170,9 +174,15 @@ class PostDetail(RetrieveUpdateDestroyAPIView):
 # Posts with ViewSets in CBV - (ViewSet and ModelViewSet)
 class PostModelViewSet(viewsets.ModelViewSet):
     """ Show, create, edit and delete any post with ViewSets """
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    pagination_class = SmallPagination
+    filterset_fields = {"category": ["exact", "in"], "author": ["exact"], "status": ["exact"]}
+    search_fields = ["title","content"]
+    ordering_fields = ["title", "published_date"]
     queryset = Post.objects.filter(status=True)
+    
     
     @action(methods=['get'], detail=False)
     def get_ok(self, request):

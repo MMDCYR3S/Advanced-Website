@@ -13,8 +13,8 @@ from accounts.models import User, Profile
 class CustomUserAdmin(UserAdmin):
     model = User
     # add_form = CustomUserCreationForm
-    list_display = ("email", "is_active", "is_staff", "is_superuser")
-    list_filter = ("email", "is_active")
+    list_display = ("email", "is_active", "is_staff", "is_superuser" , "is_verified")
+    list_filter = ("email", "is_active", "is_superuser","is_verified")
     searching_field = ("email",)
     ordering = ("email", )
     fieldsets = (
@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
         }),
 
         ("Permissions",{
-            "fields":('is_active', 'is_staff', 'is_superuser'),
+            "fields":('is_active', 'is_staff', 'is_superuser', "is_verified"),
         }),
 
         ("Groups Permissions",{
@@ -37,7 +37,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         ("Authentication",{
             'classes' : ("wide",),
-            "fields" : ('email', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser'),
+            "fields" : ('email', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser', 'is_verified'),
         }),
     )
 

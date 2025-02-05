@@ -1,6 +1,12 @@
+# General modules
 django>4.2,<4.3
 python-decouple
 djangorestframework
+
+# Third party modules
 markdown
 django-filter
 coreapi
+drf-yasg[validation]
+
+# Deployment modules

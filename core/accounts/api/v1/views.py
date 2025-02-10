@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from django.core.mail import send_mail
+from mail_templated import EmailMessage
 
 from rest_framework import generics
 from rest_framework import status
@@ -19,6 +19,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 from django.contrib.auth import get_user_model
 from ...models import Profile
+from ..utils import EmailThread
 
 # Creating a user model
 User = get_user_model()
@@ -118,13 +119,9 @@ class ProfileAPIView(generics.RetrieveUpdateAPIView):
 class TestEmailSend(generics.GenericAPIView):
     
     def get(self, request, *args, **kwargs):
-        send_mail(
-            'Subject',
-            "از جنگو برات پیام اومده، کیر تو بدخواهات",
-            "from@example.com",
-            ["amingholami06@gmail.com"],
-            fail_silently=False,
-        )
+        kwargs['email'] = EmailMessage('email/email_sent.tpl', {'name': 'amin'}, 'admin@admin.com',
+                               to=['amingholami06@gmail.com'])
+        EmailThread(kwargs['email']).start()
         return Response("Email were successfully sent.")
     
     

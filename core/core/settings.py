@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_filters',
     'coreapi',
     'drf_yasg',
+    'mail_templated',
         
     'accounts',
     'blog',
@@ -164,4 +165,11 @@ REST_FRAMEWORK = {
 }
 
 # Console configuration
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp4dev'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''

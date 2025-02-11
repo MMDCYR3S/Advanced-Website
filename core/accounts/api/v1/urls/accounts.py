@@ -23,6 +23,9 @@ urlpatterns = [
     path("jwt/verify/", TokenVerifyView.as_view(), name="jwt-verify"),
     
     # Activation and resend activation
-    path('test-email/', views.TestEmailSend.as_view(), name="test-email")
+    path('test-email/', views.TestEmailSend.as_view(), name="test-email"),
+    path('activation/confirm/<str:token>', views.ActivationAPIView.as_view(), name="activation"),
+    path('activation/resend/', views.ActivationResendAPIView.as_view(), name="activation-resend"),
+    
     # path('activation/confirm/', )
 ]

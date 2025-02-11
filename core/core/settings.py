@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'coreapi',
     'drf_yasg',
     'mail_templated',
+    'djoser',
         
     'accounts',
     'blog',

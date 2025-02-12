@@ -1,19 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser, PermissionsMixin)
+    BaseUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+)
 from django.utils.translation import gettext_lazy as _
 
 
 # Create a custom User Manager to manage users
 class UserManager(BaseUserManager):
-    """ Summary:
-        Custom user model manager where email is the unique
-        identifiers for authentication instead of usernames.
+    """Summary:
+    Custom user model manager where email is the unique
+    identifiers for authentication instead of usernames.
     """
+
     def create_user(self, email, password, **extra_fields):
-        """ Description:
-            Create and save a user with email and password and
-            extra fields.
+        """Description:
+        Create and save a user with email and password and
+        extra fields.
         """
         if not email:
             raise ValueError(_("The email must be set!"))
@@ -22,11 +26,11 @@ class UserManager(BaseUserManager):
         user.set_password(password)
         user.save()
         return user
-    
+
     def create_superuser(self, email, password, **extra_fields):
-        """ Description:
-            Create and save a superuser with email and password and
-            extra fields.
+        """Description:
+        Create and save a superuser with email and password and
+        extra fields.
         """
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -35,24 +39,25 @@ class UserManager(BaseUserManager):
 
         if extra_fields.get("is_staff") != True:
             raise ValueError(_("Superuser must have staff permission!"))
-        
+
         if extra_fields.get("is_superuser") != True:
             raise ValueError(_("Superuser must have superuser permission!"))
-        
+
         if extra_fields.get("is_verified") != True:
             raise ValueError(_("Superuser must be verified!"))
-        
+
         return self.create_user(email, password, **extra_fields)
+
 
 # Create CustomUser for controlling user login/signup
 class User(AbstractBaseUser, PermissionsMixin):
-    """ This is a User Model where It gets email as username. """
+    """This is a User Model where It gets email as username."""
+
     email = models.EmailField(max_length=200, unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
-    
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

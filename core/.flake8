@@ -1,0 +1,16 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    old,
+    build,
+    dist,
+    settings.py,
+    __init__,
+    .env,
+    venv
+
+ignore=
+    E501
+
+max-complexity= 10

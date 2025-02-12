@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from .users import User
 
+
 # Create a Profile class
 class Profile(models.Model):
     """
@@ -10,6 +11,7 @@ class Profile(models.Model):
     It gets email from User model and then put it in the user
     variable below.
     """
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
@@ -20,6 +22,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
 
 @receiver(post_save, sender=User)
 def save_profile(sender, instance, created, **kwargs):

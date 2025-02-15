@@ -9,6 +9,7 @@ app_name = "blog"
 urlpatterns = [
     # path('fbv-index', views.indexView , name='fbv-index'),
     # path('cbv-index', views.IndexView.as_view(), name='cbv-index'),
+    path("", views.IndexView.as_view(), name="index"),
     path("post/", views.PostList.as_view(), name="post-list"),
     path("post/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
     path("post/create/", views.PostCreateView.as_view(), name="post-create"),
